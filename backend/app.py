@@ -17,9 +17,8 @@ load_dotenv()
 app = Flask(__name__)
 CORS(app, resources={r"/api/*": {"origins": [
     "http://localhost:5173",
-    "https://your-app-name.vercel.app"  # update this once you have your real Vercel URL
+    "https://online-train-food-ordering-system.vercel.app"
 ]}})
-
 app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
 db.init_app(app)
 
