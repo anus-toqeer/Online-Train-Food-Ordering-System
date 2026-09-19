@@ -1,0 +1,113 @@
+.container {
+  padding: 2rem;
+  max-width: 900px;
+  margin: 0 auto;
+  margin-top: 0;
+}
+
+.container h2 {
+  color: var(--rail-green-900);
+  margin-bottom: 1.5rem;
+}
+
+.section { margin-bottom: 2.5rem; }
+
+.section h3 {
+  color: var(--rail-green-900);
+  margin-bottom: 1rem;
+}
+
+.form {
+  display: flex;
+  gap: 0.75rem;
+  max-width: 500px;
+  flex-wrap: wrap;
+}
+
+.form input {
+  padding: 0.7rem;
+  border: 1px solid var(--rail-border);
+  border-radius: 4px;
+  background: white;
+  flex: 1;
+  min-width: 140px;
+}
+
+.form input:focus {
+  outline: none;
+  border-color: var(--rail-green-700);
+}
+
+.button {
+  padding: 0.7rem 1.3rem;
+  background: var(--rail-green-700);
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.deleteBtn {
+     padding: 0.5rem 1.1rem;
+  border-radius: 4px;
+  border: none;
+  background: var(--rail-amber);
+  color: var(--rail-green-900);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.button:hover { background: var(--rail-green-900); }
+
+.menuItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: white;
+  border: 1px solid var(--rail-border);
+  border-radius: 8px;
+  padding: 0.9rem 1.2rem;
+  margin-bottom: 0.6rem;
+}
+
+.orderCard {
+  background: white;
+  border: 1px solid var(--rail-border);
+  border-radius: 8px;
+  padding: 1rem 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.orderTop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.orderTitle { font-weight: 600; color: var(--rail-amber); }
+
+.orderMeta { font-size: 0.85rem; color: var(--rail-green-900); margin-bottom: 0.5rem; font-weight: 35px; }
+
+.statusRow { display: flex; align-items: center; gap: 0.6rem; }
+
+.statusSelect {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid var(--rail-border);
+  border-radius: 4px;
+  background: var(--rail-cream);
+}
+
+.empty {
+  background: var(--rail-green);
+  border: 1px dashed var(--rail-green-700);
+  border-radius: 8px;
+  padding: 1.5rem;
+  text-align: center;
+  color: var(--rail-amber);
+  font-size: 0.95rem;
+}
+
+.error { color: #B3261E; }

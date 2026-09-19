@@ -1,0 +1,150 @@
+.nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2rem 3rem;
+  background-color: var(--rail-green-900);
+  color: white;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.navLinks { display: flex; gap: 0.75rem; }
+
+.navBtn {
+  padding: 0.5rem 1.1rem;
+  border-radius: 4px;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+
+.navBtnFilled {
+  padding: 0.5rem 1.1rem;
+  border-radius: 4px;
+  border: none;
+  background: var(--rail-amber);
+  color: var(--rail-green-900);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.95rem;
+  text-decoration: none;
+}
+.navBtnFilled:hover{
+  background-color:var(--rail-border) ;
+
+}
+
+.hero {
+  padding: 5rem 3rem 4rem;
+  max-width: 640px;
+}
+
+.hero h1 {
+  font-size: 2.6rem;
+  line-height: 1.15;
+  color: var(--rail-green-900);
+  margin-bottom: 1rem;
+}
+
+.hero p {
+  font-size: 1.1rem;
+  color: #45543E;
+  margin-bottom: 2rem;
+  max-width: 480px;
+}
+
+.heroActions { display: flex; gap: 1rem; }
+
+
+.button {
+  padding: 0.7rem;
+  background-color: var(--rail-green-700);
+  color: white;
+  border: black;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.button:hover {
+  background-color: var(--rail-green-900);
+}
+
+
+/* route line motif */
+.routeSection {
+  padding: 1rem 3rem 5rem;
+}
+
+.routeLine {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 900px;
+  margin: 0 auto 3rem;
+}
+
+.routeLine::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--rail-border);
+  z-index: 0;
+}
+
+.station {
+  position: relative;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--rail-green-700);
+  border: 3px solid var(--rail-cream);
+  box-shadow: 0 0 0 1.5px var(--rail-green-700);
+}
+
+.roleCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.roleCard {
+  background: white;
+  border: 1px solid var(--rail-border);
+  border-radius: 6px;
+  padding: 1.5rem;
+}
+
+.roleCard h3 {
+  color: var(--rail-green-900);
+  font-size: 1.15rem;
+  margin-bottom: 0.6rem;
+}
+
+.roleCard p {
+  color: #4A5A43;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .roleCards { grid-template-columns: 1fr; }
+  .hero h1 { font-size: 2rem; }
+}

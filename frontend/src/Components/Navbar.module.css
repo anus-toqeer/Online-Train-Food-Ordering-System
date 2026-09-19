@@ -1,0 +1,50 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #1e293b;
+  color: white;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.role {
+  font-size: 0.85rem;
+  padding: 0.2rem 0.6rem;
+  background-color: #334155;
+  border-radius: 4px;
+  text-transform: capitalize;
+}
+
+.logoutBtn {
+  padding: 0.4rem 0.9rem;
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.logoutBtn:hover {
+  background-color: #b91c1c;
+}
+
+.navbar {
+  background-color: var(--rail-green-900);
+}
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
