@@ -4,8 +4,8 @@ TFOS lets train passengers order food from verified vendors at upcoming stations
 
 ## Live Demo
 
-- Frontend: `<add your deployed Vercel link here>`
-- Backend API: `<add your deployed Render/Railway link here>`
+- Frontend: `https://online-train-food-ordering-system.vercel.app/`
+- Backend API: https://online-train-food-ordering-system-production.up.railway.app
 
 ## Overview
 
