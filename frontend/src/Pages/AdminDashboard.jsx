@@ -10,6 +10,8 @@ function AdminDashboard() {
     const [vendors, setVendors] = useState([]);
     const [allOrders, setAllOrders] = useState([]);
     const [error, setError] = useState('');
+    const [passengers, setPassengers] = useState([]);
+
 
     const authHeader = useMemo(
         () => ({ headers: { Authorization: `Bearer ${token}` } }),
@@ -25,18 +27,27 @@ function AdminDashboard() {
         return res.data;
     }, [authHeader]);
 
+
+    const fetchPassengers = useCallback(async function () {
+        const res = await api.get('/api/admin/passengers', authHeader);
+        return res.data;
+    }, [authHeader]);
+
     useEffect(function () {
         if (!token) return;
 
         async function loadData() {
             try {
-                const [vendorsData, ordersData] = await Promise.all([
+                const [vendorsData, ordersData, passengersData] = await Promise.all([
                     fetchVendors(),
-                    fetchOrders()
+                    fetchOrders(),
+                    fetchPassengers()
+
                 ]);
 
                 setVendors(vendorsData);
                 setAllOrders(ordersData);
+                setPassengers(passengersData);
 
             } catch {
                 setError(`Failed to load data`);
@@ -44,7 +55,7 @@ function AdminDashboard() {
         }
 
         loadData();
-    }, [token, fetchVendors, fetchOrders]);
+    }, [token, fetchVendors, fetchOrders, fetchPassengers]);
 
     async function refreshVendors() {
         const data = await fetchVendors();
@@ -58,6 +69,18 @@ function AdminDashboard() {
             await refreshVendors();
         } catch (err) {
             setError(`Failed to verify vendor ${err.message}`);
+        }
+    }
+    async function handleDeleteVendor(vendorId, label) {
+        if (!window.confirm(`Remove ${label}? This also deletes their menu and all their orders.`)) return;
+        try {
+            setError('');
+            await api.delete(`/api/admin/vendors/${vendorId}`, authHeader);
+            const [vendorsData, ordersData] = await Promise.all([fetchVendors(), fetchOrders()]);
+            setVendors(vendorsData);
+            setAllOrders(ordersData);
+        } catch (err) {
+            setError(`Failed to remove vendor: ${err.message}`);
         }
     }
 
@@ -87,6 +110,12 @@ function AdminDashboard() {
                                     </button>
                                 )
                                 }
+                                <button
+                                    className={styles.deleteBtn}
+                                    onClick={() => handleDeleteVendor(v.id, v.vendor_name || v.station_name)}
+                                >
+                                    Remove
+                                </button>
                             </div>
                         ))
                     )}
@@ -110,6 +139,26 @@ function AdminDashboard() {
                                     </div>
                                 ))
                             )}
+                        </div>
+                    ))
+                )}
+            </div>
+            <div className={styles.section}>
+                <h3>Passengers</h3>
+                {passengers.length === 0 ? (
+                    <div className={styles.empty}>No passengers registered yet.</div>
+                ) : (
+                    passengers.map((p) => (
+                        <div key={p.id} className={styles.vendorCard}>
+                            <div>
+                                <strong>{p.name}</strong>
+                                <span className={styles.passengerEmail}>{p.email}</span>
+                            </div>
+                            <span className={`${styles.badge} ${p.order_count > 0 ? styles.verified : styles.unverified}`}>
+                                {p.order_count > 0
+                                    ? `${p.order_count} order${p.order_count > 1 ? 's' : ''} · Rs ${p.total_spent}`
+                                    : 'No orders yet'}
+                            </span>
                         </div>
                     ))
                 )}

@@ -30,7 +30,23 @@
   margin-top: 0;
 }
 
+.actions {
+  display: flex;
+  gap: 0.6rem;
+}
 
+.deleteBtn {
+  padding: 0.5rem 1.1rem;
+  background: transparent;
+  color: #B3261E;
+  border: 1px solid #B3261E;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.deleteBtn:hover {
+  background: #FDECEC;
+}
 /* =========================
    VENDOR CARD
 ========================= */
@@ -176,6 +192,13 @@
 
 .orderRow:last-child {
   border-bottom: none;
+}
+
+.passengerEmail {
+  display: block;
+  font-size: 0.85rem;
+  color: #6B7568;
+  margin-top: 0.2rem;
 }
 
 

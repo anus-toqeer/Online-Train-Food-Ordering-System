@@ -2,12 +2,34 @@ from flask import jsonify ,request, Blueprint
 from flask_jwt_extended import jwt_required, get_jwt_identity, get_jwt
 from models import Vendor
 from extensions import db
-
+from sqlalchemy import func
+from models import Vendor, User, Order, OrderItem, MenuItem
 
 admin_bp = Blueprint('admin',__name__)
 
 
 from models import User
+
+@admin_bp.route('/api/admin/vendors/<vendor_id>', methods=['DELETE'])
+@jwt_required()
+def delete_vendor(vendor_id):
+    claims = get_jwt()
+    if claims.get('role') != 'admin':
+        return jsonify({"error": "Invalid role"}), 403
+
+    vendor = Vendor.query.get(vendor_id)
+    if not vendor:
+        return jsonify({"error": "Vendor not found"}), 404
+
+    order_ids = [o.id for o in Order.query.filter_by(vendor_id=vendor.id).all()]
+    if order_ids:
+        OrderItem.query.filter(OrderItem.order_id.in_(order_ids)).delete(synchronize_session=False)
+        Order.query.filter(Order.id.in_(order_ids)).delete(synchronize_session=False)
+
+    MenuItem.query.filter_by(vendor_id=vendor.id).delete(synchronize_session=False)
+    db.session.delete(vendor)
+    db.session.commit()
+    return jsonify({"message": "Vendor removed"}), 200
 
 @admin_bp.route('/api/admin/vendors', methods=['GET'])
 @jwt_required()
@@ -81,3 +103,31 @@ def get_all_orders():
         })
 
     return jsonify(list(grouped.values())), 200
+
+
+@admin_bp.route('/api/admin/passengers', methods=['GET'])
+@jwt_required()
+def get_passengers():
+    claims = get_jwt()
+    if claims.get('role') != 'admin':
+        return jsonify({"error": "Invalid role"}), 403
+
+    results = (
+        db.session.query(
+            User,
+            func.count(Order.id),
+            func.coalesce(func.sum(Order.total_price), 0)
+        )
+        .outerjoin(Order, Order.passenger_id == User.id)
+        .filter(User.role == 'passenger')
+        .group_by(User.id)
+        .all()
+    )
+
+    return jsonify([{
+        "id": u.id,
+        "name": u.name,
+        "email": u.email,
+        "order_count": count,
+        "total_spent": str(total)
+    } for u, count, total in results]), 200

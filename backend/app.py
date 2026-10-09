@@ -12,6 +12,7 @@ from admin import admin_bp
 from datetime import timedelta
 
 
+
 load_dotenv()
 
 app = Flask(__name__)
