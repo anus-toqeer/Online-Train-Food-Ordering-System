@@ -26,6 +26,7 @@ def login():
     user = User.query.filter_by(email=data['email']).first()
 
     if not user or not bcrypt.check_password_hash(user.password_hash, data['password']):
+        print("heelloo")
         return jsonify({"error": "Invalid credentials"}), 401
 
     token = create_access_token(identity=user.id, additional_claims={"role": user.role})
